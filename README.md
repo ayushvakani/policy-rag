@@ -1,8 +1,12 @@
 Abstract
 
-This project implements an on-premise, retrieval-augmented decision support system designed for Maharashtra Government / BMC-style administrative use cases. The system ingests statutory Acts (JSON) and reference documents (PDFs), converts them into structured semantic embeddings, and enables controlled, auditable, and conservative policy reasoning.
+This project implements an on-premise, retrieval-augmented decision support system designed for Maharashtra Government / BMC–style administrative use cases. The system ingests statutory Acts and Rules (JSON) along with reference and contextual documents (PDFs), converts them into structured semantic embeddings, and enables controlled, auditable, and conservative policy interpretation.
 
-The system does not approve, reject, or recommend actions. Instead, it assists officers by retrieving relevant legal provisions, clearly separating what can be concluded, what cannot be concluded, and what requires further confirmation, ensuring defensible decision-making under policy ambiguity.
+The system does not approve, reject, or recommend actions. Instead, it assists officers by retrieving relevant legal provisions and clearly separating:
+what can be concluded,
+what cannot be concluded, and
+what requires further confirmation,
+thereby supporting defensible decision-making under policy ambiguity.
 
 Key outcomes achieved:
 Large-scale ingestion of statutory and contextual documents
@@ -21,12 +25,12 @@ policy-rag/
 │  └─ config/
 │
 ├─ data/                 # RAW DATA ONLY (gitignored)
-│  ├─ json_files/
-│  └─ pdf_files/
-│
-├─ vector_store/         # SINGLE VECTOR DB LOCATION (gitignored)
+│  ├─ json_files/        # Statutory Acts / Rules
+│  └─ pdf_files/         # Reference / contextual PDFs
 │
 ├─ notebooks/            # Optional experiments only
+│  └─ Data/
+│     └─ vector_store/   # Vector DB (gitignored, on-prem)
 │
 ├─ main.py
 ├─ README.md
@@ -37,7 +41,16 @@ policy-rag/
 🔧 Prerequisites
 Python 3.9+
 Virtual environment support
-GROQ API key (for LLM inference)
+Ollama installed locally
+No cloud or enterprise LLM API keys required
+
+LLM Inference
+Runtime: Ollama (fully on-prem)
+Default model: llama3.1:latest
+Inference characteristics:
+Deterministic (low temperature)
+No outbound network calls
+Suitable for audit-constrained environments
 
 🚀 Setup Instructions
 1️⃣ Clone the Repository
@@ -48,10 +61,12 @@ python -m venv .venv
 .venv\Scripts\activate
 3️⃣ Install Dependencies
 pip install -r requirements.txt
-4️⃣ Configure Environment Variables
-Create a .env file at the project root:
-GROQ_API_KEY=your_groq_api_key_here
-5️⃣ Add Data
+4️⃣ Install Ollama and Pull Model
+ollama pull llama3.1:latest
+5️⃣ Configure Environment Variables
+Create a .env file at the project root (optional overrides only):
+VECTOR_DB_PATH=notebooks/Data/vector_store
+ Add Data
 data/
 ├── pdf_files/     # PDFs (manuals, reports, reference docs)
 └── json_files/    # Acts, rules, circulars (structured JSON)
