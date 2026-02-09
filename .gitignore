@@ -12,9 +12,11 @@ __pycache__/
 .venv/
 
 # -------------------------
-# Environment variables
+# Environment variables (CRITICAL)
 # -------------------------
 .env
+.env.*
+*.env
 
 # -------------------------
 # Editor / OS
@@ -34,16 +36,33 @@ wheels/
 # RAW DATA (DO NOT COMMIT)
 # -------------------------
 data/
+Data/
 notebooks/Data/
 
 # -------------------------
-# VECTOR DATABASE (CRITICAL)
+# VECTOR DATABASE (CRITICAL – NEVER COMMIT)
+# -------------------------
+# -------------------------
+# VECTOR DATABASE (CRITICAL – NEVER COMMIT)
 # -------------------------
 vector_store/
+Data/vector_store/
 notebooks/Data/vector_store/
+**/vector_store/**
 chroma.sqlite3
+*.sqlite3
+*.parquet
+*.bin
+
 
 # -------------------------
 # Logs / temp
 # -------------------------
 *.log
+
+# -------------------------
+# Tooling caches (optional but clean)
+# -------------------------
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
